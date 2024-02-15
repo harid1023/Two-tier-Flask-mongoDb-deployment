@@ -231,7 +231,34 @@ eksctl version
 ```
 ![Screenshot (359)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/311b0aa1-e379-4ecf-ae95-04cd4f4750b3)
 
+5.7 Use eksctl to create the EKS cluster
+```
+eksctl create cluster --name ghulk-cluster --region us-east-1 --node-type t2.small --nodes-min 2 --nodes-max 2
+```
+![Screenshot (360)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/bc0b30f3-7f0b-4421-9ec9-ae4a084870e9)
 
+5.8 Create manifest for deployment, secrets, configmaps and service yaml for our both tiers by cloning the repository:
+```
+git clone https://github.com/ghulk123/two-tier-flask-app.git
+```
+![Screenshot (360)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/a9e99e87-ac9a-47dc-84dd-3f0984de2cd0)
+
+5.9 Apply all the manifest files:
+```
+kubectl apply -f mysql-secrets.yml -f mysql-configmap.yml -f mysql-svc.yml -f mysql-deployment.yml
+kubectl apply -f two-tier-app-deployment.yml -f two-tier-app-svc.yml
+```
+![Screenshot (361)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/38ffbe18-21a6-4fad-8a1d-c227ea23b2c1)
+
+5.10 Access the application using Load Balancer URL
+```
+kubectl get svc
+```
+http://a6397f9ad1f2448d28912a092a10bb81-2104183748.us-east-1.elb.amazonaws.com/
+
+![Screenshot (362)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/d988e844-14f3-46cf-bff0-40b9844f69a0)
+
+![Screenshot (363)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/1381f1e1-3774-4767-9df3-43a455858467)
 
 
 
