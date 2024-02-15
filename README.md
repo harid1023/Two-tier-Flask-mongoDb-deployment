@@ -174,7 +174,6 @@ sudo apt-get install helm
 4.2 Create "mysql-chart" and modify templates and values in that
 ```
 helm create mysql-chart
-```
 vi values.yml
 ```
 ![Screenshot (353)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/d9f478ff-4562-4fac-a426-0ebe4ad4b151)
