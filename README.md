@@ -201,20 +201,35 @@ sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
 ![Screenshot (356)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/a2888a72-e255-44a4-b191-f11eb0f0bff5)
 
 5.2 Create an IAM User:
- o Go to the AWS IAM console.
- o Create a new IAM user named "eks-admin."
- o Attach the "AdministratorAccess" policy to this user.
+ 1. Go to the AWS IAM console.
+ 2. Create a new IAM user named "eks-admin."
+ 3. Attach the "AdministratorAccess" policy to this user.
 
 5.3 Create Security Credentials:
- o After creating the user, generate an Access Key and Secret Access Key for this user.
+ 1. After creating the user, generate an Access Key and Secret Access Key for this user.
 
 5.4 Configure the AWS CLI with the Access Key and Secret Access Key:
 ```
 aws configure
 ```
+![Screenshot (357)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/703bf1f5-51f7-48c2-b045-4fa73a871f92)
 
+5.5 Install kubectl:
+```
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin
+kubectl version --short –client
+```
+![Screenshot (358)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/e24a9b79-20b8-4820-aebb-dc00b11ee80d)
 
-
+5.6 Install eksctl:
+```
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+```
+![Screenshot (359)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/311b0aa1-e379-4ecf-ae95-04cd4f4750b3)
 
 
 
