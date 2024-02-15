@@ -57,35 +57,48 @@ echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' | sudo t
 sudo apt update 
 sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
 ```
+![Screenshot (330)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/f69f6905-60ca-406a-87b0-7bc59ac73fd8)
 
 2.2 Initialize the Kubernetes master node, After successfully running, our Kubernetes control plane will be initialized successfully with all the required services for the control plane:
 ```
 sudo kubeadm init
 ```
+![Screenshot (331)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/45ca84c9-94f2-4e1a-8bd6-cef1de708e38)
+
 2.3 Set up local kubeconfig (both for root user and normal user):
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
+![Screenshot (333)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/725362d7-2efe-4bbb-a4fa-fd148eabc53b)
+
 2.4 Apply Weave network:
 ```
 kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 ```
+![Screenshot (334)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/61795cc5-5630-4f42-ace7-f8b22d32f090)
+
 2.5 Generate a token for worker nodes to join:
 ```
 sudo kubeadm token create --print-join-command
 ```
+![Screenshot (335)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/b5b1af98-854a-4801-94f9-88ca38578808)
+
 2.6 Expose port 6443 in the Security group for the Worker to connect to Master Node:
+![Screenshot (336)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/38db6af0-a09f-4eaf-95ff-60202225423f)
 
 2.7 Run the following commands on the worker node.
 ```
 sudo kubeadm reset pre-flight checks
 ```
+![Screenshot (337)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/d205dcc2-97ba-41f5-a21a-2253eddfeb53)
+
 2.8 Paste the join command you got from the master node and append --v=5 at the end. Make sure either you are working as sudo user or use sudo before the command:
 ```
-
+sudo kubeadm join 172.31.94.225:6443 --token dbn6ea.szatcr3dc9kkju61     --discovery-token-ca-cert-hash sha256:c2e5226a7558fae4bc9a904820ab04fe9acecb40ece1c19ac474a89e09916731 --v=5
 ```
+![Screenshot (338)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/08423f7a-dfc5-4b75-ac39-286edfed0514)
 
 # 3. Our third task is to deploy our two-tier flask application on Kubernetes Cluster (Kubeadm) prevoisuly created:
 
