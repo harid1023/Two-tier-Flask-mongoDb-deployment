@@ -108,15 +108,36 @@ git clone https://github.com/ghulk123/two-tier-flask-app.git
 ```
 
 3.2 Now we have to apply deployment and service yaml for the flask application also have to apply deployment and service file for MySql along with its PersitentVolume and PerisitentVolumeClaim
+Note : Open port 30007 on master noder
 ```
 cd two-tier-flask-app/k8s
 kubectl apply -f two-tier-app-deployment.yml
+```
+![Screenshot (342)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/7e062942-3d5f-49b3-8a8c-eaa06256e86a)
+
+```
 kubectl apply -f two-tier-app-svc.yml
 ```
+![Screenshot (341)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/945761cb-4ee4-44f7-af54-a6647e0a966d)
 
 ```
 kubectl apply -f mysql-deployment.yml
-kubectl apply -f mysql-deployment-svc.yml
-kubectl apply -f persistent-volume.yml
-kubectl apply -f persistent-volume-claim.yml
 ```
+![Screenshot (343)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/8dfd18f4-8d46-45b7-80b6-622355d1bf12)
+
+```
+kubectl apply -f mysql-svc.yml
+```
+![Screenshot (346)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/d6fe954b-c3b7-4035-b283-e3c01c947b84)
+
+```
+kubectl apply -f mysql-pv.yml
+```
+![Screenshot (345)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/ea03bb54-c79f-40ed-bbb3-187cd135eaa5)
+
+```
+kubectl apply -f mysql-pvc.yml
+```
+![Screenshot (344)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/b9c74798-8b6f-4633-805b-f7809c270ef3)
+
+3.3 We can access the application on <public-ip of worker node>:30004
