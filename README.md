@@ -36,7 +36,8 @@ docker-compose up -d
 1.4 Our application is accessible on port <public-ip>:5000
 ![Screenshot (328)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/595e6ff3-5cf5-4619-b4fb-d277f59a3d53)
 
-# 2. Our second task is to setup Kubernetes Cluster (Kubeadm)
+# 2. Our second task is to setup Kubernetes Cluster (Kubeadm):
+Create two instances one for control and other as a worker node on AWS EC2
 
 2.1 Run the following commands on both the master and worker nodes to prepare them for kubeadm.
 ```
@@ -74,4 +75,35 @@ kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/we
 2.5 Generate a token for worker nodes to join:
 ```
 sudo kubeadm token create --print-join-command
+```
+2.6 Expose port 6443 in the Security group for the Worker to connect to Master Node:
+
+2.7 Run the following commands on the worker node.
+```
+sudo kubeadm reset pre-flight checks
+```
+2.8 Paste the join command you got from the master node and append --v=5 at the end. Make sure either you are working as sudo user or use sudo before the command:
+```
+
+```
+
+# 3. Our third task is to deploy our two-tier flask application on Kubernetes Cluster (Kubeadm) prevoisuly created:
+
+3.1 First clone the flask app repository on master node
+```
+git clone https://github.com/ghulk123/two-tier-flask-app.git
+```
+
+3.2 Now we have to apply deployment and service yaml for the flask application also have to apply deployment and service file for MySql along with its PersitentVolume and PerisitentVolumeClaim
+```
+cd two-tier-flask-app/k8s
+kubectl apply -f two-tier-app-deployment.yml
+kubectl apply -f two-tier-app-svc.yml
+```
+
+```
+kubectl apply -f mysql-deployment.yml
+kubectl apply -f mysql-deployment-svc.yml
+kubectl apply -f persistent-volume.yml
+kubectl apply -f persistent-volume-claim.yml
 ```
