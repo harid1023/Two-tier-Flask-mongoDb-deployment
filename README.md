@@ -158,3 +158,48 @@ CREATE TABLE messages (
 
 3.4 Finally our application is accessible
 ![Screenshot (349)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/ae2bffd2-dc0c-4b1c-a671-79e1cc56d4a9)
+
+# 4. Our fourth task is to package the Kubernetes manifest files using HELM and deployed the application on K8s cluster.
+
+4.1 How to Install helm in Ubuntu
+```
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+```
+![Screenshot (350)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/67839c63-92ce-4a31-a144-7ee6e7f7dbe4)
+
+4.2 Create "mysql-chart" and modify templates and values in that
+```
+mkdir two-tier-app
+cd two-tier app/
+helm create mysql-chart
+```
+![Screenshot (351)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/dbdce62a-fa36-4166-80f4-cf29423439e7)
+
+```
+vi values.yml
+```
+![Screenshot (353)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/d9f478ff-4562-4fac-a426-0ebe4ad4b151)
+
+```
+vi templates/deployment.yaml
+```
+![Screenshot (354)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/7349ec6c-9a52-4cd7-ad7c-46acf3585da0)
+
+4.3 Now we have to package the mysql chart
+```
+helm package mysql-chart
+```
+
+
+
+
+
+
+
+
+
+
