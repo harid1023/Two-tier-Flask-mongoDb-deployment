@@ -1,4 +1,4 @@
-# "Two-tier Flask MongoDB deployment"
+# "Two-tier Flask MySql deployment"
 
 # 1. Our first task is to dockerize both tiers using docker-compose:
 
@@ -35,3 +35,24 @@ docker-compose up -d
 
 1.4 Our application is accessible on port <public-ip>:5000
 ![Screenshot (328)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/595e6ff3-5cf5-4619-b4fb-d277f59a3d53)
+
+# 2. Our second task is to setup Kubernetes Cluster (Kubeadm)
+
+2.1 Run the following commands on both the master and worker nodes to prepare them for kubeadm.
+```
+# using 'sudo su' is not a good practice.
+sudo apt update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo apt install docker.io -y
+
+sudo systemctl enable --now docker # enable and start in single command.
+
+# Adding GPG keys.
+curl -fsSL "https://packages.cloud.google.com/apt/doc/apt-key.gpg" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubernetes-archive-keyring.gpg
+
+# Add the repository to the sourcelist.
+echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt update 
+sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
+```
