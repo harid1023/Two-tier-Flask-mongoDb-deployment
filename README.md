@@ -173,12 +173,7 @@ sudo apt-get install helm
 
 4.2 Create "mysql-chart" and modify templates and values in that
 ```
-mkdir two-tier-app
-cd two-tier app/
 helm create mysql-chart
-```
-![Screenshot (351)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/dbdce62a-fa36-4166-80f4-cf29423439e7)
-
 ```
 vi values.yml
 ```
@@ -189,10 +184,36 @@ vi templates/deployment.yaml
 ```
 ![Screenshot (354)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/7349ec6c-9a52-4cd7-ad7c-46acf3585da0)
 
-4.3 Now we have to package the mysql chart
+4.3 Now we have to package the mysql chart and install mysql chart
 ```
 helm package mysql-chart
+helm install mysql-chart ./mysql-chart
 ```
+
+# 5. Our fifth task is to deploy our two tier flask application on AWS managed Elastic Kubernetes Services(EKS)
+
+5.1 Install and configure the AWS Command Line Interface (CLI) on your local.
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+unzip awscliv2.zip
+sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
+```
+![Screenshot (356)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/a2888a72-e255-44a4-b191-f11eb0f0bff5)
+
+5.2 Create an IAM User:
+ o Go to the AWS IAM console.
+ o Create a new IAM user named "eks-admin."
+ o Attach the "AdministratorAccess" policy to this user.
+
+5.3 Create Security Credentials:
+ o After creating the user, generate an Access Key and Secret Access Key for this user.
+
+5.4 Configure the AWS CLI with the Access Key and Secret Access Key:
+```
+aws configure
+```
+
 
 
 
