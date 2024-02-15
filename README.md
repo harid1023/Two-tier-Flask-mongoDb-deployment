@@ -56,3 +56,22 @@ echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' | sudo t
 sudo apt update 
 sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
 ```
+
+2.2 Initialize the Kubernetes master node, After successfully running, our Kubernetes control plane will be initialized successfully with all the required services for the control plane:
+```
+sudo kubeadm init
+```
+2.3 Set up local kubeconfig (both for root user and normal user):
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+2.4 Apply Weave network:
+```
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+```
+2.5 Generate a token for worker nodes to join:
+```
+sudo kubeadm token create --print-join-command
+```
