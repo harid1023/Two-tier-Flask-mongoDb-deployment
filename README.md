@@ -140,4 +140,21 @@ kubectl apply -f mysql-pvc.yml
 ```
 ![Screenshot (344)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/b9c74798-8b6f-4633-805b-f7809c270ef3)
 
-3.3 We can access the application on <public-ip of worker node>:30004
+3.3 We can access the application on <public-ip of worker node>:30004 but we get error msg "Table 'mydb.messages' doesn't exist" , we can solve it by entering into the container of mysql and create table there 
+
+```
+sudo docker exec -it <container id of mysql pod running in worker node> bash
+mysql -u root -p # Enter password
+show databases;
+use mydb;
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT
+);
+```
+![Screenshot (347)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/8683295b-00cf-4da0-8285-3ef3c80f3099)
+
+![Screenshot (348)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/c36a61aa-1c07-4954-a3be-d8b4e8005690)
+
+3.4 Finally our application is accessible
+![Screenshot (349)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/ae2bffd2-dc0c-4b1c-a671-79e1cc56d4a9)
