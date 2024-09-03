@@ -55,7 +55,9 @@ curl -fsSL "https://packages.cloud.google.com/apt/doc/apt-key.gpg" | sudo gpg --
 echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 sudo apt update 
-sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
+sudo snap install kubeadm --classic
+sudo snap install kubectl --classic
+sudo snap install kubelet --classic
 ```
 ![Screenshot (330)](https://github.com/ghulk123/Two-tier-Flask-mongoDb-deployment/assets/104766246/f69f6905-60ca-406a-87b0-7bc59ac73fd8)
 
